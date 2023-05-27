@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block lga_total_results %}
+    <form action="" method="get">
+        <label for="lga">Select LGA:</label>
+        <select name="lga_id" id="lga">
+            <option value="">-- Select LGA --</option>
+            {% for lga in lgas %}
+            <option value="{{ lga.lga_id }}">{{ lga.lga_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+    {% if polling_units %}
+    <h1>Total Results for Selected LGA</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Party</th>
+                <th>Total Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for party, score in total_results.items %}
+            <tr>
+                <td>{{ party }}</td>
+                <td>{{ score }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endblock lga_total_results %}

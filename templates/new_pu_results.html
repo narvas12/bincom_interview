@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+
+{% block new_pu_results %}
+    <h1>Store Results for New Polling Unit</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="unique_id">Select Polling Unit:</label>
+        <select name="unique_id" id="unique_id">
+            {% for polling_unit in polling_units %}
+            <option value="{{ polling_unit.uniqueid }}">{{ polling_unit.polling_unit_name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="pdp">PDP:</label>
+        <input type="number" name="PDP" id="pdp">
+        <br><br>
+        <label for="dpp">DPP:</label>
+        <input type="number" name="DPP" id="dpp">
+        <br><br>
+        <label for="acn">ACN:</label>
+        <input type="number" name="ACN" id="acn">
+        <br><br>
+        <label for="ppa">PPA:</label>
+        <input type="number" name="PPA" id="ppa">
+        <br><br>
+        <label for="cdc">CDC:</label>
+        <input type="number" name="CDC" id="cdc">
+        <br><br>
+        <label for="jp">JP:</label>
+        <input type="number" name="JP" id="jp">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock new_pu_results %}
