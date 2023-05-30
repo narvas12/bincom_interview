@@ -1,23 +1,27 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from .models import PollingUnit, PollingunitAnnouncedpuresult
+from django.shortcuts import render
+from .models import AnnouncedPuResults
+from .models import PollingunitAnnouncedlgaresult
 
 
-def polling_unit_results(request, polling_unit_id):
-    try:
-        polling_unit = PollingUnit.objects.get(uniqueid=polling_unit_id)
-        results = PollingunitAnnouncedpuresult.objects.filter(polling_unit_uniqueid=polling_unit_id)
-        
-        context = {
-            'polling_unit': polling_unit,
-            'results': results
-        }
-        
-        return render(request, 'individual_pu_result.html', context)
-    
-    except PollingUnit.DoesNotExist:
-        # Handle the case when polling unit doesn't exist
-        return HttpResponse('polling unit not found')
+def announced_pu_results(request):
+    results = AnnouncedPuResults.objects.all()
+    return render(request, 'individual_pu_result.html', {'results': results})
 
 
 
+def summed_total_result(request):
+    lgas = PollingunitAnnouncedlgaresult.objects.values_list('lga_name', flat=True).distinct()
+    selected_lga = request.GET.get('lga', None)
+
+    if selected_lga:
+        total_result = PollingunitAnnouncedlgaresult.objects.filter(lga_name=selected_lga).aggregate(Sum('party_score'))
+    else:
+        total_result = None
+
+    context = {
+        'lgas': lgas,
+        'selected_lga': selected_lga,
+        'total_result': total_result,
+    }
+
+    return render(request, 'myapp/summed_total_result.html', context)

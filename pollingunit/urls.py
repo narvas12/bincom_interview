@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('pollingunit/', views.polling_unit_results, name='individual_polling_unit'),
+    path('announced-pu-results/', views.announced_pu_results, name='announced_pu_results'),
+    path('summed-total-result/', views.summed_total_result, name='summed_total_result'),
 ]
