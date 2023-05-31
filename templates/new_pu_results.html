@@ -1,0 +1,21 @@
+
+{% block new_pu_results %}
+
+<form method="POST">
+    {% csrf_token %}
+    <label for="polling-unit-select">Select Polling Unit:</label>
+    <select id="polling-unit-select" name="polling_unit">
+        {% for polling_unit in polling_units %}
+            <option value="{{ polling_unit.uniqueid }}">{{ polling_unit.polling_unit_name }}</option>
+        {% endfor %}
+    </select>
+
+    {% for party in parties %}
+        <label for="party-{{ party.partyid }}">{{ party.partyname }}:</label>
+        <input type="number" id="party-{{ party.partyid }}" name="party_{{ party.partyid }}" required>
+    {% endfor %}
+
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock new_pu_results %}

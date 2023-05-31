@@ -1,20 +1,20 @@
 {% block lga_total_results %}
 
-<form method="GET">
-    <label for="lga-select">Select LGA:</label>
-    <select id="lga-select" name="lga">
-        <option value="" {% if not selected_lga %}selected{% endif %}>All LGAs</option>
-        {% for lga in lgas %}
-            <option value="{{ lga }}" 
-            {% if selected_lga == lga %}selected{% endif %}>{{ lga }}
-        </option>
+<form method="POST">
+    {% csrf_token %}
+    <label for="local-government-select">Select Local Government:</label>
+    <select id="local-government-select" name="local_government">
+        {% for local_government in local_governments %}
+            <option value="{{ local_government.lga_name }}">{{ local_government.lga_name }}</option>
         {% endfor %}
     </select>
+
     <button type="submit">Submit</button>
 </form>
 
-{% if total_result %}
-    <h2>Summed Total Result for LGA: {{ selected_lga }}</h2>
-    <p>Total Party Score: {{ total_result.party_score__sum }}</p>
+{% if selected_lga %}
+    <h1>Summed Total Result for {{ selected_lga }}</h1>
+    <p>Total Result: {{ total_result }}</p>
 {% endif %}
+
 {% endblock lga_total_results %}
