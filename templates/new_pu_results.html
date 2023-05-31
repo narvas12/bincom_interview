@@ -1,21 +1,80 @@
-
 {% block new_pu_results %}
 
-<form method="POST">
+<style>
+  body {
+    background:#001800;
+  }
+
+  .title {
+    font-size: 40px;
+    text-align: center;
+  }
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .form-container select,
+  .form-container input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .form-container button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+  }
+
+  .form-container button:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<div class="form-container">
+  <form method="POST">
     {% csrf_token %}
-    <label for="polling-unit-select">Select Polling Unit:</label>
+    <label class="title" for="polling-unit-select">Select Polling Unit:</label>
     <select id="polling-unit-select" name="polling_unit">
-        {% for polling_unit in polling_units %}
-            <option value="{{ polling_unit.uniqueid }}">{{ polling_unit.polling_unit_name }}</option>
-        {% endfor %}
+      {% for polling_unit in polling_units %}
+      <option value="{{ polling_unit.uniqueid }}">
+        {{ polling_unit.polling_unit_name }}
+      </option>
+      {% endfor %}
     </select>
 
+    <br /><br />
+
     {% for party in parties %}
-        <label for="party-{{ party.partyid }}">{{ party.partyname }}:</label>
-        <input type="number" id="party-{{ party.partyid }}" name="party_{{ party.partyid }}" required>
+    <label for="party-{{ party.partyid }}">{{ party.partyname }}:</label>
+    <input
+      type="number"
+      id="party-{{ party.partyid }}"
+      name="party_{{ party.partyid }}"
+      required
+    />
+    <br /><br />
     {% endfor %}
 
     <button type="submit">Submit</button>
-</form>
+  </form>
+</div>
 
 {% endblock new_pu_results %}

@@ -1,32 +1,52 @@
-{% extends 'base.html' %}
-{% block individual_pollingunits %}
+{% extends 'base.html' %} {% block individual_pollingunits %}
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  table thead th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 10px;
+  }
+
+  table tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  table tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+</style>
 
 <table>
-    <thead>
-      <tr>
-        <th>Result ID</th>
-        <th>Polling Unit Unique ID</th>
-        <th>Party Abbreviation</th>
-        <th>Party Score</th>
-        <th>Entered by User</th>
-        <th>Date Entered</th>
-        <th>User IP Address</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for result in results %}
-        <tr>
-          <td>{{ result.result_id }}</td>
-          <td>{{ result.polling_unit_uniqueid }}</td>
-          <td>{{ result.party_abbreviation }}</td>
-          <td>{{ result.party_score }}</td>
-          <td>{{ result.entered_by_user }}</td>
-          <td>{{ result.date_entered }}</td>
-          <td>{{ result.user_ip_address }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  
+  <thead>
+    <tr>
+      <th>Result ID</th>
+      <th>Polling Unit Unique ID</th>
+      <th>Party Abbreviation</th>
+      <th>Party Score</th>
+      <th>Entered by User</th>
+      <th>Date Entered</th>
+      <th>User IP Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for result in results %}
+    <tr>
+      <td>{{ result.result_id }}</td>
+      <td>{{ result.polling_unit_uniqueid }}</td>
+      <td>{{ result.party_abbreviation }}</td>
+      <td>{{ result.party_score }}</td>
+      <td>{{ result.entered_by_user }}</td>
+      <td>{{ result.date_entered }}</td>
+      <td>{{ result.user_ip_address }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-    {% endblock individual_pollingunits %}
+{% endblock individual_pollingunits %}

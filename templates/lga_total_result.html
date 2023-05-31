@@ -1,20 +1,73 @@
 {% block lga_total_results %}
 
-<form method="POST">
-    {% csrf_token %}
-    <label for="local-government-select">Select Local Government:</label>
-    <select id="local-government-select" name="local_government">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+
+  .form-container {
+    max-width: 400px;
+    margin-bottom: 20px;
+  }
+
+  .form-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .form-container select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .form-container button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .form-container button:hover {
+    background-color: #45a049;
+  }
+</style>
+
+<body>
+  <div class="form-container">
+    <form method="POST">
+      {% csrf_token %}
+      <label for="local-government-select">Select Local Government:</label>
+      <select id="local-government-select" name="local_government">
         {% for local_government in local_governments %}
-            <option value="{{ local_government.lga_name }}">{{ local_government.lga_name }}</option>
+        <option value="{{ local_government.lga_name }}">
+          {{ local_government.lga_name }}
+        </option>
         {% endfor %}
-    </select>
+      </select>
 
-    <button type="submit">Submit</button>
-</form>
+      <br /><br />
 
-{% if selected_lga %}
-    <h1>Summed Total Result for {{ selected_lga }}</h1>
-    <p>Total Result: {{ total_result }}</p>
-{% endif %}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  {% if selected_lga %}
+  <h1>Summed Total Result for {{ selected_lga }}</h1>
+  <p>Total Result: {{ total_result }}</p>
+  {% endif %}
+</body>
 
 {% endblock lga_total_results %}
