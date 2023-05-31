@@ -10,32 +10,47 @@
 
     <title>Election Results</title>
     <style>
+      body {
+        background:#d5f765;
+      }
       /* Navbar styles */
       .navbar {
+          
+          font-weight: 800;
           background-color: #333;
           color: #fff;
           padding: 10px;
+          margin-bottom:20px;
+          
+          
       }
   
       .navbar ul {
           list-style-type: none;
           margin: 0;
           padding: 0;
+          margin:0 2px;
+          text-align:center;
       }
   
       .navbar li {
           display: inline-block;
           margin-right: 10px;
+          padding:5px;
+          border-radius:5px;
+          background:green;
+          
       }
   
       .navbar li a {
-          color: #fff;
+          color: black;
           text-decoration: none;
           padding: 5px 10px;
       }
   
       /* Footer styles */
       .footer {
+          margin-top:20px;
           background-color: #333;
           color: #fff;
           padding: 20px;
@@ -49,21 +64,14 @@
 
 <div class="navbar">
     <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{% url 'announced_pu_results' %}">Individual Polling Units</a></li>
+        <li><a href="{% url 'summed_total_result' %}">lga Total Result</a></li>
+        <li><a href="{% url 'add_polling_unit_results' %}"> Add New Polling Unit Results</a></li>
     </ul>
 </div>
 
 
-  <nav class="navbar navbar-light bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">individual_pu</a>
-      <a class="navbar-brand" href="#">lga_total_result</a>
-      <a class="navbar-brand" href="#">new_pu_results</a>
-    </div>
-  </nav>
+  {% block new_pu_results %}{% endblock new_pu_results %}
   {% block individual_pollingunits %}{% endblock individual_pollingunits %}
   {% block lga_total_results %}{% endblock lga_total_results %}
   <!-- Content goes here -->
