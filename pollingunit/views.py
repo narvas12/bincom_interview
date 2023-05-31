@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
+import datetime 
+from django.http import HttpResponseRedirect
 
 def announced_pu_results(request):
     results = AnnouncedPuResults.objects.all()
@@ -54,10 +56,10 @@ def add_polling_unit_results(request):
                 party_abbreviation=party_abbreviation,
                 party_score=party_score,
                 entered_by_user=request.user.username,  # Change if you have user authentication
-                # Add other fields as necessary
+                date_entered=datetime.datetime.now().date()
             )
 
-        return redirect('polling_unit_results')  # Redirect to a page after saving the results
+        return HttpResponseRedirect('new_pu_results.html')  # Redirect to a page after saving the results
 
     context = {
         'parties': parties,
