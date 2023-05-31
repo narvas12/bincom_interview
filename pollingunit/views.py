@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import *
-import datetime 
-from django.http import HttpResponseRedirect
+import datetime
+from django.http import HttpResponse
+
 
 def announced_pu_results(request):
     results = AnnouncedPuResults.objects.all()
     return render(request, 'individual_pu_result.html', {'results': results})
-
-
 
 
 def summed_total_result(request):
@@ -38,9 +37,6 @@ def summed_total_result(request):
     return render(request, 'lga_total_result.html', context)
 
 
-
-
-
 def add_polling_unit_results(request):
     parties = Party.objects.all()
     polling_units = PollingUnit.objects.all()
@@ -55,11 +51,13 @@ def add_polling_unit_results(request):
                 polling_unit_uniqueid=polling_unit_id,
                 party_abbreviation=party_abbreviation,
                 party_score=party_score,
-                entered_by_user=request.user.username,  # Change if you have user authentication
+                # Change if you have user authentication
+                entered_by_user=request.user.username,
                 date_entered=datetime.datetime.now().date()
             )
 
-        return HttpResponseRedirect('new_pu_results.html')  # Redirect to a page after saving the results
+        # Redirect to a page after saving the results
+        return HttpResponse('Result uploaded succesfully!!')
 
     context = {
         'parties': parties,
